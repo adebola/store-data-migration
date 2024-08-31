@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
-const DATABASE_URL = process.env.DATABASE_URL || 'mongodb://localhost:27017/store';
-const DEFAULT_ZONE = '66d24f4e5110159f72ed8719';
-const ANONYMOUS_USER = '5e8d934d10b3808df9567bcb';
+const o = require('dotenv').config();
 
 const Order = require('./model/order');
 const Payment = require('./model/Payment');
 const OrderV2 = require('./model/OrderV2');
 const User = require('./model/user');
 const Product = require('./model/Product');
+
+const DATABASE_URL = process.env.DATABASE_URL || 'mongodb://localhost:27017/store';
+const DEFAULT_ZONE = process.env.DEFAULT_ZONE || '66d24f4e5110159f72ed8719';
+const ANONYMOUS_USER = process.env.ANONYMOUS_USER || '5e8d934d10b3808df9567bcb';
 
 mongoose.connect(DATABASE_URL, {
     useNewUrlParser: true,
@@ -20,6 +22,14 @@ mongoose.connect(DATABASE_URL, {
 });
 
 migrate = async () => {
+
+    console.log('Starting Migration, Please ensure the requisite environment variables are set');
+    console.log('Ensure the following environment variables are set:');
+    console.log('DATABASE_URL');
+    console.log('DEFAULT_ZONE');
+    console.log('ANONYMOUS_USER');
+    console.log('Your can set them in this file or edit your .env file accordingly');
+
     const orders = await Order.find()
         .lean();
 
