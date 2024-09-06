@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const o = require('dotenv').config();
 
 const Order = require('./model/order');
-const Payment = require('./model/Payment');
-const OrderV2 = require('./model/OrderV2');
+const Payment = require('./model/payment');
+const OrderV2 = require('./model/orderv2');
 const User = require('./model/user');
-const Product = require('./model/Product');
+const Product = require('./model/product');
 
 const DATABASE_URL = process.env.DATABASE_URL || 'mongodb://localhost:27017/store';
 const DEFAULT_ZONE = process.env.DEFAULT_ZONE || '66d24f4e5110159f72ed8719';
