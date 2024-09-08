@@ -110,6 +110,7 @@ migrate = async () => {
 
                 if (order.user) {
                     const user = await User.findById(order.user).lean();
+                    console.log(`User ${order.user} found for order ${order._id}`);
 
                     if (!user) {
                         console.error(`User ${order.user} not found`);
@@ -124,6 +125,16 @@ migrate = async () => {
                     orderV2.user = ANONYMOUS_USER;
                     console.log(`Creating Default Delivery for Order ${order._id}`);
                 }
+            } else if (order.user) {
+                const user = await User.findById(order.user).lean();
+                console.log(`User ${order.user} found for order ${order._id} NO DELIVERY`);
+
+                if (!user) {
+                    console.error(`User ${order.user} not found`);
+                    return;
+                }
+
+                orderV2.user = order.user;
             }
 
             orderV2.date = order.date;
